@@ -10,27 +10,45 @@ if not os.path.exists(directory_name):
 
 
 sub_directory_number = 5
+file_set = set()
 
 
-for i in range(sub_directory_number + 1):
-    sub_directory_name = os.path.join(directory_name, 'file_'+str(i))
- 
+def count_types():
+    parent_dir = os.path.dirname(os.getcwd())
+    working_dir = os.path.join(parent_dir,"Downloads")
 
-    if not os.path.exists(sub_directory_name):
-        os.mkdir(sub_directory_name)
-        print(f"Created {sub_directory_name}")
+    for i in os.listdir(working_dir):
+        type = (os.path.splitext(i))[-1].upper()
+        file_set.add(type)
+    
+    print(file_set)
+        
 
-    else:
 
-        if os.listdir(sub_directory_name):      #Checking if the sub directory already exists
-            choice = input(f"{(os.getcwd())} already has file named {sub_directory_name} which is not empty. Do you want to overwrite it (y/n)?").lower()
 
-            if choice == 'y':
-                shutil.rmtree(sub_directory_name)
-                print(f"Created new {sub_directory_name}")
-                os.mkdir(sub_directory_name)
-            else:
-                print("Skipping file"+{sub_directory_name})
+def create_files():
+    for i in range(len(sub_directory_number) + 1):
+        sub_directory_name = os.path.join(directory_name, 'file_'+str(i))
+    
+
+        if not os.path.exists(sub_directory_name):
+            os.mkdir(sub_directory_name)
+            print(f"Created {sub_directory_name}")
+
+        else:
+
+            if os.listdir(sub_directory_name):      #Checking if the sub directory already exists
+                choice = input(f"{(os.getcwd())} already has file named {sub_directory_name} which is not empty. Do you want to overwrite it (y/n)?").lower()
+
+                if choice == 'y':
+                    shutil.rmtree(sub_directory_name)
+                    print(f"Created new {sub_directory_name}")
+                    os.mkdir(sub_directory_name)
+                else:
+                    print("Skipping file"+{sub_directory_name})
 
 
 print('Directories created successfully!')
+
+if __name__ == "__main__":
+    count_types()
